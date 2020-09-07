@@ -10,57 +10,57 @@
             <form id="formId">
                 <div class="select-list">
                     <ul>
-                        <li>
-                            <p>省份名：</p>
-                            <input type="text" name="province"/>
-                        </li>
+                        <!--<li>-->
+                            <!--<p>省份名：</p>-->
+                            <!--<input type="text" name="province"/>-->
+                        <!--</li>-->
                         <li>
                             <p>城市名：</p>
                             <input type="text" name="city"/>
                         </li>
-                        <li>
-                            <p>
-                                区域编码：</p>
-                            <input type="text" name="adcode"/>
-                        </li>
-                        <li>
-                            <p>天气现象：</p>
-                            <input type="text" name="weather"/>
-                        </li>
-                        <li>
-                            <p>实时气温，单位:℃</p>
-                            <input type="text" name="temperature"/>
-                        </li>
-                        <li>
-                            <p>风向描述：</p>
-                            <input type="text" name="winddirection"/>
-                        </li>
-                        <li>
-                            <p>
-                                风力级别</p>
-                            <input type="text" name="windpower"/>
-                        </li>
-                        <li>
-                            <p>空气湿度：</p>
-                            <input type="text" name="humidity"/>
-                        </li>
-                        <li class="select-time">
-                            <p>
-                                数据发布时间：</p>
-                            <input type="text" class="time-input" id="startTime" placeholder="开始时间"
-                                   name="params[beginReporttime]"/>
-                            <span>-</span>
-                            <input type="text" class="time-input" id="endTime" placeholder="结束时间"
-                                   name="params[endReporttime]"/>
-                        </li>
-                        <li class="select-time">
-                            <p>用户请求时间：</p>
-                            <input type="text" class="time-input" id="startTime" placeholder="开始时间"
-                                   name="params[beginCreatetime]"/>
-                            <span>-</span>
-                            <input type="text" class="time-input" id="endTime" placeholder="结束时间"
-                                   name="params[endCreatetime]"/>
-                        </li>
+                        <!--<li>-->
+                            <!--<p>-->
+                                <!--区域编码：</p>-->
+                            <!--<input type="text" name="adcode"/>-->
+                        <!--</li>-->
+                        <!--<li>-->
+                            <!--<p>天气现象：</p>-->
+                            <!--<input type="text" name="weather"/>-->
+                        <!--</li>-->
+                        <!--<li>-->
+                            <!--<p>实时气温:℃</p>-->
+                            <!--<input type="text" name="temperature"/>-->
+                        <!--</li>-->
+                        <!--<li>-->
+                            <!--<p>风向描述：</p>-->
+                            <!--<input type="text" name="winddirection"/>-->
+                        <!--</li>-->
+                        <!--<li>-->
+                            <!--<p>-->
+                                <!--风力级别</p>-->
+                            <!--<input type="text" name="windpower"/>-->
+                        <!--</li>-->
+                        <!--<li>-->
+                            <!--<p>空气湿度：</p>-->
+                            <!--<input type="text" name="humidity"/>-->
+                        <!--</li>-->
+                        <!--<li class="select-time">-->
+                            <!--<p>-->
+                                <!--数据发布时间：</p>-->
+                            <!--<input type="text" class="time-input" id="startTime" placeholder="开始时间"-->
+                                   <!--name="params[beginReporttime]"/>-->
+                            <!--<span>-</span>-->
+                            <!--<input type="text" class="time-input" id="endTime" placeholder="结束时间"-->
+                                   <!--name="params[endReporttime]"/>-->
+                        <!--</li>-->
+                        <!--<li class="select-time">-->
+                            <!--<p>用户请求时间：</p>-->
+                            <!--<input type="text" class="time-input" id="startTime" placeholder="开始时间"-->
+                                   <!--name="params[beginCreatetime]"/>-->
+                            <!--<span>-</span>-->
+                            <!--<input type="text" class="time-input" id="endTime" placeholder="结束时间"-->
+                                   <!--name="params[endCreatetime]"/>-->
+                        <!--</li>-->
                         <li>
                             <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i
                                     class="fa fa-search"></i>&nbsp;搜索</a>
@@ -133,7 +133,7 @@
                 },
                 {
                     field: 'temperature',
-                    title: '实时气温，单位：摄氏度'
+                    title: '实时气温:℃'
                 },
                 {
                     field: 'winddirection',
@@ -141,7 +141,7 @@
                 },
                 {
                     field: 'windpower',
-                    title: '风力级别，单位：级'
+                    title: '风力级别'
                 },
                 {
                     field: 'humidity',
@@ -149,10 +149,10 @@
                 },
                 {
                     field: 'reporttime',
-                    title: '数据发布的时间'
+                    title: '数据发布时间'
                 },
                 {
-                    field: 'createtime',
+                    field: 'createTime',
                     title: '用户请求时间'
                 },
                 {
