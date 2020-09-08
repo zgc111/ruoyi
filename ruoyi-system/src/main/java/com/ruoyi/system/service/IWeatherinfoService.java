@@ -1,6 +1,8 @@
 package com.ruoyi.system.service;
 
 import com.ruoyi.system.domain.Weatherinfo;
+
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -58,4 +60,7 @@ public interface IWeatherinfoService
      * @return 结果
      */
     public int deleteWeatherinfoById(Long id);
+
+    public Long selectWeatherinfoOne();
+
 }

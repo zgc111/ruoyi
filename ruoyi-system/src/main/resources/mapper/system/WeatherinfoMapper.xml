@@ -38,6 +38,15 @@
         </where>
     </select>
 
+    <select id="selectWeatherinfoOne" resultType="long">
+        select max(ID) from weatherinfo
+    </select>
+
+    <select id="selectByDate" parameterType="java.util.Date" resultMap="WeatherinfoResult">
+          select ID, province, city, adcode, weather, temperature, winddirection, windpower, humidity, reporttime, createTime from weatherinfo
+          where createTime=#{createTime}
+    </select>
+
     <select id="selectWeatherinfoById" parameterType="Long" resultMap="WeatherinfoResult">
         <include refid="selectWeatherinfoVo"/>
         where ID = #{id}

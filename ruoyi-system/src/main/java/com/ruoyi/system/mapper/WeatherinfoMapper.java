@@ -1,6 +1,8 @@
 package com.ruoyi.system.mapper;
 
 import com.ruoyi.system.domain.Weatherinfo;
+
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -58,4 +60,11 @@ public interface WeatherinfoMapper
      * @return 结果
      */
     public int deleteWeatherinfoByIds(String[] ids);
+
+    /**
+     * 根据最新请求时间查询天气数据
+     * @return
+     */
+    public Long selectWeatherinfoOne();
+
 }

@@ -1,6 +1,7 @@
 # 项目相关配置
 ruoyi:
   # 名称
+
   name: 管理系统
   # 版本
   version: 5.2.0
@@ -77,6 +78,7 @@ spring:
     database: 0
     password:
     timeout: 10000
+
 
 # MyBatis
 mybatis:

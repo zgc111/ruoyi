@@ -11,58 +11,58 @@
                 <div class="select-list">
                     <ul>
                         <!--<li>-->
-                            <!--<p>省份名：</p>-->
-                            <!--<input type="text" name="province"/>-->
+                        <!--<p>省份名：</p>-->
+                        <!--<input type="text" name="province"/>-->
                         <!--</li>-->
                         <li>
                             <p>城市名：</p>
-                            <input type="text" name="city"/>
+                            <input type="text" name="city" id="city" placeholder="请输入城市名"/>
                         </li>
                         <!--<li>-->
-                            <!--<p>-->
-                                <!--区域编码：</p>-->
-                            <!--<input type="text" name="adcode"/>-->
+                        <!--<p>-->
+                        <!--区域编码：</p>-->
+                        <!--<input type="text" name="adcode"/>-->
                         <!--</li>-->
                         <!--<li>-->
-                            <!--<p>天气现象：</p>-->
-                            <!--<input type="text" name="weather"/>-->
+                        <!--<p>天气现象：</p>-->
+                        <!--<input type="text" name="weather"/>-->
                         <!--</li>-->
                         <!--<li>-->
-                            <!--<p>实时气温:℃</p>-->
-                            <!--<input type="text" name="temperature"/>-->
+                        <!--<p>实时气温:℃</p>-->
+                        <!--<input type="text" name="temperature"/>-->
                         <!--</li>-->
                         <!--<li>-->
-                            <!--<p>风向描述：</p>-->
-                            <!--<input type="text" name="winddirection"/>-->
+                        <!--<p>风向描述：</p>-->
+                        <!--<input type="text" name="winddirection"/>-->
                         <!--</li>-->
                         <!--<li>-->
-                            <!--<p>-->
-                                <!--风力级别</p>-->
-                            <!--<input type="text" name="windpower"/>-->
+                        <!--<p>-->
+                        <!--风力级别</p>-->
+                        <!--<input type="text" name="windpower"/>-->
                         <!--</li>-->
                         <!--<li>-->
-                            <!--<p>空气湿度：</p>-->
-                            <!--<input type="text" name="humidity"/>-->
+                        <!--<p>空气湿度：</p>-->
+                        <!--<input type="text" name="humidity"/>-->
                         <!--</li>-->
                         <!--<li class="select-time">-->
-                            <!--<p>-->
-                                <!--数据发布时间：</p>-->
-                            <!--<input type="text" class="time-input" id="startTime" placeholder="开始时间"-->
-                                   <!--name="params[beginReporttime]"/>-->
-                            <!--<span>-</span>-->
-                            <!--<input type="text" class="time-input" id="endTime" placeholder="结束时间"-->
-                                   <!--name="params[endReporttime]"/>-->
+                        <!--<p>-->
+                        <!--数据发布时间：</p>-->
+                        <!--<input type="text" class="time-input" id="startTime" placeholder="开始时间"-->
+                        <!--name="params[beginReporttime]"/>-->
+                        <!--<span>-</span>-->
+                        <!--<input type="text" class="time-input" id="endTime" placeholder="结束时间"-->
+                        <!--name="params[endReporttime]"/>-->
                         <!--</li>-->
                         <!--<li class="select-time">-->
-                            <!--<p>用户请求时间：</p>-->
-                            <!--<input type="text" class="time-input" id="startTime" placeholder="开始时间"-->
-                                   <!--name="params[beginCreatetime]"/>-->
-                            <!--<span>-</span>-->
-                            <!--<input type="text" class="time-input" id="endTime" placeholder="结束时间"-->
-                                   <!--name="params[endCreatetime]"/>-->
+                        <!--<p>用户请求时间：</p>-->
+                        <!--<input type="text" class="time-input" id="startTime" placeholder="开始时间"-->
+                        <!--name="params[beginCreatetime]"/>-->
+                        <!--<span>-</span>-->
+                        <!--<input type="text" class="time-input" id="endTime" placeholder="结束时间"-->
+                        <!--name="params[endCreatetime]"/>-->
                         <!--</li>-->
                         <li>
-                            <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i
+                            <a class="btn btn-primary btn-rounded btn-sm" onclick="search1()"><i
                                     class="fa fa-search"></i>&nbsp;搜索</a>
                             <a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i
                                     class="fa fa-refresh"></i>&nbsp;重置</a>
@@ -72,22 +72,22 @@
             </form>
         </div>
 
-        <div class="btn-group-sm" id="toolbar" role="group">
-            <a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="system:weatherinfo:add">
-                <i class="fa fa-plus"></i> 添加
-            </a>
-            <a class="btn btn-primary single disabled" onclick="$.operate.edit()"
-               shiro:hasPermission="system:weatherinfo:edit">
-                <i class="fa fa-edit"></i> 修改
-            </a>
-            <a class="btn btn-danger multiple disabled" onclick="$.operate.removeAll()"
-               shiro:hasPermission="system:weatherinfo:remove">
-                <i class="fa fa-remove"></i> 删除
-            </a>
-            <a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="system:weatherinfo:export">
-                <i class="fa fa-download"></i> 导出
-            </a>
-        </div>
+        <!--        <div class="btn-group-sm" id="toolbar" role="group">-->
+        <!--            <a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="system:weatherinfo:add">-->
+        <!--                <i class="fa fa-plus"></i> 添加-->
+        <!--            </a>-->
+        <!--            <a class="btn btn-primary single disabled" onclick="$.operate.edit()"-->
+        <!--               shiro:hasPermission="system:weatherinfo:edit">-->
+        <!--                <i class="fa fa-edit"></i> 修改-->
+        <!--            </a>-->
+        <!--            <a class="btn btn-danger multiple disabled" onclick="$.operate.removeAll()"-->
+        <!--               shiro:hasPermission="system:weatherinfo:remove">-->
+        <!--                <i class="fa fa-remove"></i> 删除-->
+        <!--            </a>-->
+        <!--            <a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="system:weatherinfo:export">-->
+        <!--                <i class="fa fa-download"></i> 导出-->
+        <!--            </a>-->
+        <!--        </div>-->
         <div class="col-sm-12 select-table table-striped">
             <table id="bootstrap-table"></table>
         </div>
@@ -160,14 +160,19 @@
                     align: 'center',
                     formatter: function (value, row, index) {
                         var actions = [];
-                        actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="javascript:void(0)" onclick="$.operate.edit(\'' + row.id + '\')"><i class="fa fa-edit"></i>编辑</a> ');
-                        actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="javascript:void(0)" onclick="$.operate.remove(\'' + row.id + '\')"><i class="fa fa-remove"></i>删除</a>');
+                        // actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="javascript:void(0)" onclick="$.operate.edit(\'' + row.id + '\')"><i class="fa fa-edit"></i>编辑</a> ');
+                        // actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="javascript:void(0)" onclick="$.operate.remove(\'' + row.id + '\')"><i class="fa fa-remove"></i>删除</a>');
                         return actions.join('');
                     }
                 }]
         };
         $.table.init(options);
     });
+
+    function search1() {
+        window.location.href = "/system/weatherinfo/info?keywords=" + $("#city").val();
+
+    }
 </script>
 </body>
 </html>
