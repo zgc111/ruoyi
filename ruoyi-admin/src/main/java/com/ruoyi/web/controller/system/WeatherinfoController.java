@@ -44,8 +44,8 @@ public class WeatherinfoController extends BaseController {
     @Autowired
     private RestTemplate restTemplate;
     /**
-     * 天气接口
-     */
+     * 天气接口  I5kpsrDn4EIBhdW0ZbTDnMVgrtSG2jxU 百度API的key
+    */
     private String weatherURL = "https://restapi.amap.com/v3/weather/weatherInfo?key=7a9247c712ee77b73fa81ec9bd9de896";
     /**
      * 行政区域接口

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="include :: header('新增个人公积金明细信息')"/>
+    <th:block th:include="include :: datetimepicker-css"/>
+</head>
+<body class="white-bg">
+<div class="wrapper wrapper-content animated fadeInRight ibox-content">
+    <form class="form-horizontal m" id="form-grgjjinfo-add">
+        <div class="form-group">
+            <label class="col-sm-3 control-label">证件号码：</label>
+            <div class="col-sm-8">
+                <input name="zjhm" class="form-control" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">个人账号：</label>
+            <div class="col-sm-8">
+                <input name="grzh" class="form-control" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">姓名：</label>
+            <div class="col-sm-8">
+                <input name="xingming" class="form-control" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">个人缴存基数：</label>
+            <div class="col-sm-8">
+                <input name="grjcjs" class="form-control" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">单位缴存比例：</label>
+            <div class="col-sm-8">
+                <input name="dwjcbl" class="form-control" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">个人缴存比例：</label>
+            <div class="col-sm-8">
+                <input name="grjcbl" class="form-control" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">单位月缴存额：</label>
+            <div class="col-sm-8">
+                <input name="dwyjce" class="form-control" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">个人月缴存额：</label>
+            <div class="col-sm-8">
+                <input name="gryjce" class="form-control" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">月缴存额：</label>
+            <div class="col-sm-8">
+                <input name="monthpayamt" class="form-control" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">缴存银行：</label>
+            <div class="col-sm-8">
+                <input name="gjbank" class="form-control" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">个人账户余额：</label>
+            <div class="col-sm-8">
+                <input name="grzhye" class="form-control" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">当前汇缴月份：</label>
+            <div class="col-sm-8">
+                <div class="input-group date">
+                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                    <input name="jzrq" class="form-control" placeholder="yyyy-MM-dd" type="text">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">末次汇缴月份：</label>
+            <div class="col-sm-8">
+                <div class="input-group date">
+                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                    <input name="lastpaymonth" class="form-control" placeholder="yyyy-MM-dd" type="text">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">单位名称：</label>
+            <div class="col-sm-8">
+                <input name="dwmc" class="form-control" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">单位账户：</label>
+            <div class="col-sm-8">
+                <input name="dwzh" class="form-control" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">摘要：</label>
+            <div class="col-sm-8">
+                <input name="zhaiyao" class="form-control" type="text">
+            </div>
+        </div>
+    </form>
+</div>
+<th:block th:include="include :: footer"/>
+<th:block th:include="include :: datetimepicker-js"/>
+<script type="text/javascript">
+    var prefix = ctx + "system/grgjjinfo"
+    $("#form-grgjjinfo-add").validate({
+        focusCleanup: true
+    });
+
+    function submitHandler() {
+        if ($.validate.form()) {
+            $.operate.save(prefix + "/add", $('#form-grgjjinfo-add').serialize());
+        }
+    }
+
+    $("input[name='jzrq']").datetimepicker({
+        format: "yyyy-mm",
+        minView: "month",
+        autoclose: true
+    });
+
+    $("input[name='lastpaymonth']").datetimepicker({
+        format: "yyyy-mm",
+        minView: "month",
+        autoclose: true
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.GrgjjinfoMapper">
+
+    <resultMap type="Grgjjinfo" id="GrgjjinfoResult">
+        <result property="id" column="ID"/>
+        <result property="zjhm" column="zjhm"/>
+        <result property="grzh" column="grzh"/>
+        <result property="xingming" column="xingming"/>
+        <result property="grjcjs" column="grjcjs"/>
+        <result property="dwjcbl" column="dwjcbl"/>
+        <result property="grjcbl" column="grjcbl"/>
+        <result property="dwyjce" column="dwyjce"/>
+        <result property="gryjce" column="gryjce"/>
+        <result property="monthpayamt" column="monthpayamt"/>
+        <result property="gjbank" column="gjbank"/>
+        <result property="grzhye" column="grzhye"/>
+        <result property="jzrq" column="jzrq"/>
+        <result property="lastpaymonth" column="lastpaymonth"/>
+        <result property="dwmc" column="dwmc"/>
+        <result property="dwzh" column="dwzh"/>
+        <result property="zhaiyao" column="zhaiyao"/>
+        <result property="createtime" column="createtime"/>
+    </resultMap>
+
+    <sql id="selectGrgjjinfoVo">
+        select ID, zjhm, grzh, xingming, grjcjs, dwjcbl, grjcbl, dwyjce, gryjce, monthpayamt, gjbank, grzhye, jzrq, lastpaymonth, dwmc, dwzh, zhaiyao, createtime from grgjjinfo
+    </sql>
+
+    <select id="selectGrgjjinfoList" parameterType="Grgjjinfo" resultMap="GrgjjinfoResult">
+        <include refid="selectGrgjjinfoVo"/>
+        <where>
+            <if test="zjhm != null  and zjhm != ''">and zjhm = #{zjhm}</if>
+            <if test="grzh != null  and grzh != ''">and grzh = #{grzh}</if>
+            <if test="xingming != null  and xingming != ''">and xingming = #{xingming}</if>
+            <if test="grjcjs != null ">and grjcjs = #{grjcjs}</if>
+            <if test="dwjcbl != null ">and dwjcbl = #{dwjcbl}</if>
+            <if test="grjcbl != null ">and grjcbl = #{grjcbl}</if>
+            <if test="dwyjce != null ">and dwyjce = #{dwyjce}</if>
+            <if test="gryjce != null ">and gryjce = #{gryjce}</if>
+            <if test="monthpayamt != null ">and monthpayamt = #{monthpayamt}</if>
+            <if test="gjbank != null  and gjbank != ''">and gjbank = #{gjbank}</if>
+            <if test="grzhye != null ">and grzhye = #{grzhye}</if>
+            <if test="jzrq != null ">and jzrq = #{jzrq}</if>
+            <if test="lastpaymonth != null ">and lastpaymonth = #{lastpaymonth}</if>
+            <if test="dwmc != null  and dwmc != ''">and dwmc = #{dwmc}</if>
+            <if test="dwzh != null  and dwzh != ''">and dwzh = #{dwzh}</if>
+            <if test="zhaiyao != null  and zhaiyao != ''">and zhaiyao = #{zhaiyao}</if>
+            <if test="createtime != null ">and createtime = #{createtime}</if>
+        </where>
+    </select>
+
+    <select id="selectGrgjjinfoById" parameterType="Long" resultMap="GrgjjinfoResult">
+        <include refid="selectGrgjjinfoVo"/>
+        where ID = #{id}
+    </select>
+
+    <insert id="insertGrgjjinfo" parameterType="Grgjjinfo" useGeneratedKeys="true" keyProperty="id">
+        insert into grgjjinfo
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="zjhm != null  and zjhm != ''">zjhm,</if>
+            <if test="grzh != null  and grzh != ''">grzh,</if>
+            <if test="xingming != null  and xingming != ''">xingming,</if>
+            <if test="grjcjs != null ">grjcjs,</if>
+            <if test="dwjcbl != null ">dwjcbl,</if>
+            <if test="grjcbl != null ">grjcbl,</if>
+            <if test="dwyjce != null ">dwyjce,</if>
+            <if test="gryjce != null ">gryjce,</if>
+            <if test="monthpayamt != null ">monthpayamt,</if>
+            <if test="gjbank != null  and gjbank != ''">gjbank,</if>
+            <if test="grzhye != null ">grzhye,</if>
+            <if test="jzrq != null ">jzrq,</if>
+            <if test="lastpaymonth != null ">lastpaymonth,</if>
+            <if test="dwmc != null  and dwmc != ''">dwmc,</if>
+            <if test="dwzh != null  and dwzh != ''">dwzh,</if>
+            <if test="zhaiyao != null  and zhaiyao != ''">zhaiyao,</if>
+            <if test="createtime != null ">createtime,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="zjhm != null  and zjhm != ''">#{zjhm},</if>
+            <if test="grzh != null  and grzh != ''">#{grzh},</if>
+            <if test="xingming != null  and xingming != ''">#{xingming},</if>
+            <if test="grjcjs != null ">#{grjcjs},</if>
+            <if test="dwjcbl != null ">#{dwjcbl},</if>
+            <if test="grjcbl != null ">#{grjcbl},</if>
+            <if test="dwyjce != null ">#{dwyjce},</if>
+            <if test="gryjce != null ">#{gryjce},</if>
+            <if test="monthpayamt != null ">#{monthpayamt},</if>
+            <if test="gjbank != null  and gjbank != ''">#{gjbank},</if>
+            <if test="grzhye != null ">#{grzhye},</if>
+            <if test="jzrq != null ">#{jzrq},</if>
+            <if test="lastpaymonth != null ">#{lastpaymonth},</if>
+            <if test="dwmc != null  and dwmc != ''">#{dwmc},</if>
+            <if test="dwzh != null  and dwzh != ''">#{dwzh},</if>
+            <if test="zhaiyao != null  and zhaiyao != ''">#{zhaiyao},</if>
+            <if test="createtime != null ">#{createtime},</if>
+        </trim>
+    </insert>
+
+    <update id="updateGrgjjinfo" parameterType="Grgjjinfo">
+        update grgjjinfo
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="zjhm != null  and zjhm != ''">zjhm = #{zjhm},</if>
+            <if test="grzh != null  and grzh != ''">grzh = #{grzh},</if>
+            <if test="xingming != null  and xingming != ''">xingming = #{xingming},</if>
+            <if test="grjcjs != null ">grjcjs = #{grjcjs},</if>
+            <if test="dwjcbl != null ">dwjcbl = #{dwjcbl},</if>
+            <if test="grjcbl != null ">grjcbl = #{grjcbl},</if>
+            <if test="dwyjce != null ">dwyjce = #{dwyjce},</if>
+            <if test="gryjce != null ">gryjce = #{gryjce},</if>
+            <if test="monthpayamt != null ">monthpayamt = #{monthpayamt},</if>
+            <if test="gjbank != null  and gjbank != ''">gjbank = #{gjbank},</if>
+            <if test="grzhye != null ">grzhye = #{grzhye},</if>
+            <if test="jzrq != null ">jzrq = #{jzrq},</if>
+            <if test="lastpaymonth != null ">lastpaymonth = #{lastpaymonth},</if>
+            <if test="dwmc != null  and dwmc != ''">dwmc = #{dwmc},</if>
+            <if test="dwzh != null  and dwzh != ''">dwzh = #{dwzh},</if>
+            <if test="zhaiyao != null  and zhaiyao != ''">zhaiyao = #{zhaiyao},</if>
+            <if test="createtime != null ">createtime = #{createtime},</if>
+        </trim>
+        where ID = #{id}
+    </update>
+
+    <delete id="deleteGrgjjinfoById" parameterType="Long">
+        delete from grgjjinfo where ID = #{id}
+    </delete>
+
+    <delete id="deleteGrgjjinfoByIds" parameterType="String">
+        delete from grgjjinfo where ID in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

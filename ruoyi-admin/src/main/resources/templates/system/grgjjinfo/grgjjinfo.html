@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <th:block th:include="include :: header('个人公积金明细信息列表')"/>
+</head>
+<body class="gray-bg">
+<div class="container-div">
+    <div class="row">
+        <div class="col-sm-12 search-collapse">
+            <form id="formId">
+                <div class="select-list">
+                    <ul>
+                        <li>
+                            <p>证件号码：</p>
+                            <input type="text" name="zjhm" id="zjhm" />
+                        </li>
+<!--                        <li>-->
+<!--                            <p>个人账号：</p>-->
+<!--                            <input type="text" name="grzh" id="grzh"/>-->
+<!--                        </li>-->
+                        <li>
+                            <span>目前只支持查询淮北和宿州地区的公积金,且时间从2017-01开始</span>
+                        </li>
+<!--                        <li>-->
+<!--                            <p>个人缴存基数：</p>-->
+<!--                            <input type="text" name="grjcjs"/>-->
+<!--                        </li>-->
+<!--                        <li>-->
+<!--                            <p>单位缴存比例：</p>-->
+<!--                            <input type="text" name="dwjcbl"/>-->
+<!--                        </li>-->
+<!--                        <li>-->
+<!--                            <p>个人缴存比例：</p>-->
+<!--                            <input type="text" name="grjcbl"/>-->
+<!--                        </li>-->
+<!--                        <li>-->
+<!--                            <p>单位月缴存额：</p>-->
+<!--                            <input type="text" name="dwyjce"/>-->
+<!--                        </li>-->
+<!--                        <li>-->
+<!--                            <p>个人月缴存额：</p>-->
+<!--                            <input type="text" name="gryjce"/>-->
+<!--                        </li>-->
+<!--                        <li>-->
+<!--                            <p>月缴存额：</p>-->
+<!--                            <input type="text" name="monthpayamt"/>-->
+<!--                        </li>-->
+<!--                        <li>-->
+<!--                            <p>缴存银行：</p>-->
+<!--                            <input type="text" name="gjbank"/>-->
+<!--                        </li>-->
+<!--                        <li>-->
+<!--                            <p>个人账户余额：</p>-->
+<!--                            <input type="text" name="grzhye"/>-->
+<!--                        </li>-->
+<!--                        <li class="select-time">-->
+<!--                            <p>当前汇缴月份：</p>-->
+<!--                            <input type="text" class="time-input" id="startTime" placeholder="开始时间"-->
+<!--                                   name="params[beginJzrq]"/>-->
+<!--                            <span>-</span>-->
+<!--                            <input type="text" class="time-input" id="endTime" placeholder="结束时间"-->
+<!--                                   name="params[endJzrq]"/>-->
+<!--                        </li>-->
+<!--                        <li class="select-time">-->
+<!--                            <p>末次汇缴月份：</p>-->
+<!--                            <input type="text" class="time-input" id="startTime" placeholder="开始时间"-->
+<!--                                   name="params[beginLastpaymonth]"/>-->
+<!--                            <span>-</span>-->
+<!--                            <input type="text" class="time-input" id="endTime" placeholder="结束时间"-->
+<!--                                   name="params[endLastpaymonth]"/>-->
+<!--                        </li>-->
+<!--                        <li>-->
+<!--                            <p>单位名称：</p>-->
+<!--                            <input type="text" name="dwmc"/>-->
+<!--                        </li>-->
+<!--                        <li>-->
+<!--                            <p>单位账户：</p>-->
+<!--                            <input type="text" name="dwzh"/>-->
+<!--                        </li>-->
+<!--                        <li>-->
+<!--                            <p>摘要：</p>-->
+<!--                            <input type="text" name="zhaiyao"/>-->
+<!--                        </li>-->
+<!--                        <li class="select-time">-->
+<!--                            <p>请求时间：</p>-->
+<!--                            <input type="text" class="time-input" id="startTime" placeholder="开始时间"-->
+<!--                                   name="params[beginCreatetime]"/>-->
+<!--                            <span>-</span>-->
+<!--                            <input type="text" class="time-input" id="endTime" placeholder="结束时间"-->
+<!--                                   name="params[endCreatetime]"/>-->
+<!--                        </li>-->
+                        <li>
+                            <a class="btn btn-primary btn-rounded btn-sm" onclick="findgjj()"><i
+                                    class="fa fa-search"></i>&nbsp;搜索</a>
+                            <a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i
+                                    class="fa fa-refresh"></i>&nbsp;重置</a>
+                        </li>
+                    </ul>
+                </div>
+            </form>
+        </div>
+
+        <div class="btn-group-sm" id="toolbar" role="group">
+<!--            <a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="system:grgjjinfo:add">-->
+<!--                <i class="fa fa-plus"></i> 添加-->
+<!--            </a>-->
+<!--            <a class="btn btn-primary single disabled" onclick="$.operate.edit()"-->
+<!--               shiro:hasPermission="system:grgjjinfo:edit">-->
+<!--                <i class="fa fa-edit"></i> 修改-->
+<!--            </a>-->
+<!--            <a class="btn btn-danger multiple disabled" onclick="$.operate.removeAll()"-->
+<!--               shiro:hasPermission="system:grgjjinfo:remove">-->
+<!--                <i class="fa fa-remove"></i> 删除-->
+<!--            </a>-->
+            <a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="system:grgjjinfo:export">
+                <i class="fa fa-download"></i> 导出
+            </a>
+        </div>
+        <div class="col-sm-12 select-table table-striped">
+            <table id="bootstrap-table"></table>
+        </div>
+    </div>
+</div>
+<th:block th:include="include :: footer"/>
+<script th:inline="javascript">
+    var editFlag = [[${@permission.hasPermi('system:grgjjinfo:edit')}]];
+    var removeFlag = [[${@permission.hasPermi('system:grgjjinfo:remove')}]];
+    var prefix = ctx + "system/grgjjinfo";
+
+    $(function () {
+        var options = {
+            url: prefix + "/list",
+            createUrl: prefix + "/add",
+            updateUrl: prefix + "/edit/{id}",
+            removeUrl: prefix + "/remove",
+            exportUrl: prefix + "/export",
+            modalName: "个人公积金明细信息",
+            columns: [{
+                checkbox: true
+            },
+                {
+                    field: 'id',
+                    title: 'null',
+                    visible: false
+                },
+                {
+                    field: 'zjhm',
+                    title: '证件号码'
+                },
+                {
+                    field: 'grzh',
+                    title: '个人账号'
+                },
+                {
+                    field: 'xingming',
+                    title: '姓名'
+                },
+                {
+                    field: 'grjcjs',
+                    title: '个人缴存基数'
+                },
+                {
+                    field: 'dwjcbl',
+                    title: '单位缴存比例'
+                },
+                {
+                    field: 'grjcbl',
+                    title: '个人缴存比例'
+                },
+                {
+                    field: 'dwyjce',
+                    title: '单位月缴存额'
+                },
+                {
+                    field: 'gryjce',
+                    title: '个人月缴存额'
+                },
+                {
+                    field: 'monthpayamt',
+                    title: '月缴存额'
+                },
+                {
+                    field: 'gjbank',
+                    title: '缴存银行'
+                },
+                {
+                    field: 'grzhye',
+                    title: '个人账户余额'
+                },
+                {
+                    field: 'jzrq',
+                    title: '当前汇缴月份'
+                },
+                {
+                    field: 'lastpaymonth',
+                    title: '末次汇缴月份'
+                },
+                {
+                    field: 'dwmc',
+                    title: '单位名称'
+                },
+                {
+                    field: 'dwzh',
+                    title: '单位账户'
+                },
+                {
+                    field: 'zhaiyao',
+                    title: '摘要'
+                },
+                {
+                    field: 'createtime',
+                    title: '请求时间'
+                },
+                {
+                    title: '操作',
+                    align: 'center',
+                    formatter: function (value, row, index) {
+                        var actions = [];
+                        actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="javascript:void(0)" onclick="$.operate.edit(\'' + row.id + '\')"><i class="fa fa-edit"></i>编辑</a> ');
+                        actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="javascript:void(0)" onclick="$.operate.remove(\'' + row.id + '\')"><i class="fa fa-remove"></i>删除</a>');
+                        return actions.join('');
+                    }
+                }]
+        };
+        $.table.init(options);
+    });
+</script>
+<script>
+    function findgjj() {
+        window.location.href="/system/grgjjinfo/findByZjhm"+"?zjhm="+$("#zjhm").val();
+    }
+
+</script>
+</body>
+</html>
