@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.WeatherInfoMapper">
+    
+    <resultMap type="WeatherInfo" id="WeatherInfoResult">
+        <result property="id"    column="id"    />
+        <result property="country"    column="country"    />
+        <result property="province"    column="province"    />
+        <result property="city"    column="city"    />
+        <result property="name"    column="name"    />
+        <result property="cId"    column="c_id"    />
+        <result property="temp"    column="temp"    />
+        <result property="feelsLike"    column="feels_like"    />
+        <result property="rh"    column="rh"    />
+        <result property="windClass"    column="wind_class"    />
+        <result property="windDir"    column="wind_dir"    />
+        <result property="text"    column="text"    />
+        <result property="date"    column="date"    />
+        <result property="week"    column="week"    />
+        <result property="high"    column="high"    />
+        <result property="low"    column="low"    />
+        <result property="wcDay"    column="wc_day"    />
+        <result property="wcNight"    column="wc_night"    />
+        <result property="wdDay"    column="wd_day"    />
+        <result property="wdNight"    column="wd_night"    />
+        <result property="textDay"    column="text_day"    />
+        <result property="textNight"    column="text_night"    />
+    </resultMap>
+
+    <sql id="selectWeatherInfoVo">
+        select id, country, province, city, name, c_id, temp, feels_like, rh, wind_class, wind_dir, text, date, week, high, low, wc_day, wc_night, wd_day, wd_night, text_day, text_night from weather_info
+    </sql>
+
+    <select id="selectWeatherInfoList" parameterType="WeatherInfo" resultMap="WeatherInfoResult">
+        <include refid="selectWeatherInfoVo"/>
+        <where>  
+            <if test="country != null  and country != ''"> and country = #{country}</if>
+            <if test="province != null  and province != ''"> and province = #{province}</if>
+            <if test="city != null  and city != ''"> and city = #{city}</if>
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="cId != null  and cId != ''"> and c_id = #{cId}</if>
+            <if test="temp != null "> and temp = #{temp}</if>
+            <if test="feelsLike != null "> and feels_like = #{feelsLike}</if>
+            <if test="rh != null "> and rh = #{rh}</if>
+            <if test="windClass != null  and windClass != ''"> and wind_class = #{windClass}</if>
+            <if test="windDir != null  and windDir != ''"> and wind_dir = #{windDir}</if>
+            <if test="text != null  and text != ''"> and text = #{text}</if>
+            <if test="date != null  and date != ''"> and date = #{date}</if>
+            <if test="week != null  and week != ''"> and week = #{week}</if>
+            <if test="high != null "> and high = #{high}</if>
+            <if test="low != null "> and low = #{low}</if>
+            <if test="wcDay != null  and wcDay != ''"> and wc_day = #{wcDay}</if>
+            <if test="wcNight != null  and wcNight != ''"> and wc_night = #{wcNight}</if>
+            <if test="wdDay != null  and wdDay != ''"> and wd_day = #{wdDay}</if>
+            <if test="wdNight != null  and wdNight != ''"> and wd_night = #{wdNight}</if>
+            <if test="textDay != null  and textDay != ''"> and text_day = #{textDay}</if>
+            <if test="textNight != null  and textNight != ''"> and text_night = #{textNight}</if>
+        </where>
+    </select>
+    
+    <select id="selectWeatherInfoById" parameterType="Long" resultMap="WeatherInfoResult">
+        <include refid="selectWeatherInfoVo"/>
+        where id = #{id}
+    </select>
+
+    <select id="selectByCity" parameterType="string" resultMap="WeatherInfoResult">
+        <include refid="selectWeatherInfoVo"/>
+        where city = #{city}
+    </select>
+        
+    <insert id="insertWeatherInfo" parameterType="WeatherInfo" useGeneratedKeys="true" keyProperty="id">
+        insert into weather_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="country != null  and country != ''">country,</if>
+            <if test="province != null  and province != ''">province,</if>
+            <if test="city != null  and city != ''">city,</if>
+            <if test="name != null  and name != ''">name,</if>
+            <if test="cId != null  and cId != ''">c_id,</if>
+            <if test="temp != null ">temp,</if>
+            <if test="feelsLike != null ">feels_like,</if>
+            <if test="rh != null ">rh,</if>
+            <if test="windClass != null  and windClass != ''">wind_class,</if>
+            <if test="windDir != null  and windDir != ''">wind_dir,</if>
+            <if test="text != null  and text != ''">text,</if>
+            <if test="date != null  and date != ''">date,</if>
+            <if test="week != null  and week != ''">week,</if>
+            <if test="high != null ">high,</if>
+            <if test="low != null ">low,</if>
+            <if test="wcDay != null  and wcDay != ''">wc_day,</if>
+            <if test="wcNight != null  and wcNight != ''">wc_night,</if>
+            <if test="wdDay != null  and wdDay != ''">wd_day,</if>
+            <if test="wdNight != null  and wdNight != ''">wd_night,</if>
+            <if test="textDay != null  and textDay != ''">text_day,</if>
+            <if test="textNight != null  and textNight != ''">text_night,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="country != null  and country != ''">#{country},</if>
+            <if test="province != null  and province != ''">#{province},</if>
+            <if test="city != null  and city != ''">#{city},</if>
+            <if test="name != null  and name != ''">#{name},</if>
+            <if test="cId != null  and cId != ''">#{cId},</if>
+            <if test="temp != null ">#{temp},</if>
+            <if test="feelsLike != null ">#{feelsLike},</if>
+            <if test="rh != null ">#{rh},</if>
+            <if test="windClass != null  and windClass != ''">#{windClass},</if>
+            <if test="windDir != null  and windDir != ''">#{windDir},</if>
+            <if test="text != null  and text != ''">#{text},</if>
+            <if test="date != null  and date != ''">#{date},</if>
+            <if test="week != null  and week != ''">#{week},</if>
+            <if test="high != null ">#{high},</if>
+            <if test="low != null ">#{low},</if>
+            <if test="wcDay != null  and wcDay != ''">#{wcDay},</if>
+            <if test="wcNight != null  and wcNight != ''">#{wcNight},</if>
+            <if test="wdDay != null  and wdDay != ''">#{wdDay},</if>
+            <if test="wdNight != null  and wdNight != ''">#{wdNight},</if>
+            <if test="textDay != null  and textDay != ''">#{textDay},</if>
+            <if test="textNight != null  and textNight != ''">#{textNight},</if>
+         </trim>
+    </insert>
+
+    <update id="updateWeatherInfo" parameterType="WeatherInfo">
+        update weather_info
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="country != null  and country != ''">country = #{country},</if>
+            <if test="province != null  and province != ''">province = #{province},</if>
+            <if test="city != null  and city != ''">city = #{city},</if>
+            <if test="name != null  and name != ''">name = #{name},</if>
+            <if test="cId != null  and cId != ''">c_id = #{cId},</if>
+            <if test="temp != null ">temp = #{temp},</if>
+            <if test="feelsLike != null ">feels_like = #{feelsLike},</if>
+            <if test="rh != null ">rh = #{rh},</if>
+            <if test="windClass != null  and windClass != ''">wind_class = #{windClass},</if>
+            <if test="windDir != null  and windDir != ''">wind_dir = #{windDir},</if>
+            <if test="text != null  and text != ''">text = #{text},</if>
+            <if test="date != null  and date != ''">date = #{date},</if>
+            <if test="week != null  and week != ''">week = #{week},</if>
+            <if test="high != null ">high = #{high},</if>
+            <if test="low != null ">low = #{low},</if>
+            <if test="wcDay != null  and wcDay != ''">wc_day = #{wcDay},</if>
+            <if test="wcNight != null  and wcNight != ''">wc_night = #{wcNight},</if>
+            <if test="wdDay != null  and wdDay != ''">wd_day = #{wdDay},</if>
+            <if test="wdNight != null  and wdNight != ''">wd_night = #{wdNight},</if>
+            <if test="textDay != null  and textDay != ''">text_day = #{textDay},</if>
+            <if test="textNight != null  and textNight != ''">text_night = #{textNight},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteWeatherInfoById" parameterType="Long">
+        delete from weather_info where id = #{id}
+    </delete>
+
+    <delete id="deleteWeatherInfoByIds" parameterType="String">
+        delete from weather_info where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+</mapper>

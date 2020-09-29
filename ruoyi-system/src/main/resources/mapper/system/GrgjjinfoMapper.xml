@@ -50,6 +50,7 @@
             <if test="zhaiyao != null  and zhaiyao != ''">and zhaiyao = #{zhaiyao}</if>
             <if test="createtime != null ">and createtime = #{createtime}</if>
         </where>
+        order by createtime desc
     </select>
 
     <select id="selectGrgjjinfoById" parameterType="Long" resultMap="GrgjjinfoResult">

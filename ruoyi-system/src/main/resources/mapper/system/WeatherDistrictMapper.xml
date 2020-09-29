@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.WeatherDistrictMapper">
+    
+    <resultMap type="WeatherDistrict" id="WeatherDistrictResult">
+        <result property="id"    column="id"    />
+        <result property="districtId"    column="district_id"    />
+        <result property="province"    column="province"    />
+        <result property="city"    column="city"    />
+        <result property="cityGeocode"    column="city_geocode"    />
+        <result property="district"    column="district"    />
+        <result property="districtGeocode"    column="district_geocode"    />
+        <result property="lon"    column="lon"    />
+        <result property="lat"    column="lat"    />
+    </resultMap>
+
+    <sql id="selectWeatherDistrictVo">
+        select id, district_id, province, city, city_geocode, district, district_geocode, lon, lat from weather_district
+    </sql>
+
+    <select id="selectWeatherDistrictList" parameterType="WeatherDistrict" resultMap="WeatherDistrictResult">
+        <include refid="selectWeatherDistrictVo"/>
+        <where>  
+            <if test="districtId != null  and districtId != ''"> and district_id = #{districtId}</if>
+            <if test="province != null  and province != ''"> and province = #{province}</if>
+            <if test="city != null  and city != ''"> and city = #{city}</if>
+            <if test="cityGeocode != null  and cityGeocode != ''"> and city_geocode = #{cityGeocode}</if>
+            <if test="district != null  and district != ''"> and district = #{district}</if>
+            <if test="districtGeocode != null  and districtGeocode != ''"> and district_geocode = #{districtGeocode}</if>
+            <if test="lon != null  and lon != ''"> and lon = #{lon}</if>
+            <if test="lat != null  and lat != ''"> and lat = #{lat}</if>
+        </where>
+    </select>
+    
+    <select id="selectWeatherDistrictById" parameterType="Long" resultMap="WeatherDistrictResult">
+        <include refid="selectWeatherDistrictVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertWeatherDistrict" parameterType="WeatherDistrict" useGeneratedKeys="true" keyProperty="id">
+        insert into weather_district
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="districtId != null  and districtId != ''">district_id,</if>
+            <if test="province != null  and province != ''">province,</if>
+            <if test="city != null  and city != ''">city,</if>
+            <if test="cityGeocode != null  and cityGeocode != ''">city_geocode,</if>
+            <if test="district != null  and district != ''">district,</if>
+            <if test="districtGeocode != null  and districtGeocode != ''">district_geocode,</if>
+            <if test="lon != null  and lon != ''">lon,</if>
+            <if test="lat != null  and lat != ''">lat,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="districtId != null  and districtId != ''">#{districtId},</if>
+            <if test="province != null  and province != ''">#{province},</if>
+            <if test="city != null  and city != ''">#{city},</if>
+            <if test="cityGeocode != null  and cityGeocode != ''">#{cityGeocode},</if>
+            <if test="district != null  and district != ''">#{district},</if>
+            <if test="districtGeocode != null  and districtGeocode != ''">#{districtGeocode},</if>
+            <if test="lon != null  and lon != ''">#{lon},</if>
+            <if test="lat != null  and lat != ''">#{lat},</if>
+         </trim>
+    </insert>
+
+    <update id="updateWeatherDistrict" parameterType="WeatherDistrict">
+        update weather_district
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="districtId != null  and districtId != ''">district_id = #{districtId},</if>
+            <if test="province != null  and province != ''">province = #{province},</if>
+            <if test="city != null  and city != ''">city = #{city},</if>
+            <if test="cityGeocode != null  and cityGeocode != ''">city_geocode = #{cityGeocode},</if>
+            <if test="district != null  and district != ''">district = #{district},</if>
+            <if test="districtGeocode != null  and districtGeocode != ''">district_geocode = #{districtGeocode},</if>
+            <if test="lon != null  and lon != ''">lon = #{lon},</if>
+            <if test="lat != null  and lat != ''">lat = #{lat},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteWeatherDistrictById" parameterType="Long">
+        delete from weather_district where id = #{id}
+    </delete>
+
+    <delete id="deleteWeatherDistrictByIds" parameterType="String">
+        delete from weather_district where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+</mapper>

@@ -75,7 +75,7 @@ public class GrgjjinfoController extends BaseController {
     public AjaxResult export(Grgjjinfo grgjjinfo) {
         List<Grgjjinfo> list = grgjjinfoService.selectGrgjjinfoList(grgjjinfo);
         ExcelUtil<Grgjjinfo> util = new ExcelUtil<Grgjjinfo>(Grgjjinfo.class);
-        return util.exportExcel(list, "grgjjinfo");
+        return util.exportExcel(list, "个人公积金明细");
     }
 
     /**

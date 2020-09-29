@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <th:block th:include="include :: header('百度天气信息列表')" />
+</head>
+<body class="gray-bg">
+     <div class="container-div">
+        <div class="row">
+            <div class="col-sm-12 search-collapse">
+                <form id="formId">
+                    <div class="select-list">
+                        <ul>
+<!--                            <li>-->
+<!--                                <p>国家名称：</p>-->
+<!--                                <input type="text" name="country"/>-->
+<!--                            </li>-->
+<!--                            <li>-->
+<!--                                <p>省份名称：</p>-->
+<!--                                <input type="text" name="province"/>-->
+<!--                            </li>-->
+                            <li>
+                                <p>城市名称：</p>
+                                <input type="text" name="city"/>
+                            </li>
+<!--                            <li>-->
+<!--                                <p>区县名称：</p>-->
+<!--                                <input type="text" name="name"/>-->
+<!--                            </li>-->
+<!--                            <li>-->
+<!--                                <p>区县id：</p>-->
+<!--                                <input type="text" name="cId"/>-->
+<!--                            </li>-->
+<!--                            <li>-->
+<!--                                <p>温度：</p>-->
+<!--                                <input type="text" name="temp"/>-->
+<!--                            </li>-->
+<!--                            <li>-->
+<!--                                <p>体感温度(℃)：</p>-->
+<!--                                <input type="text" name="feelsLike"/>-->
+<!--                            </li>-->
+<!--                            <li>-->
+<!--                                <p>相对湿度(%)：</p>-->
+<!--                                <input type="text" name="rh"/>-->
+<!--                            </li>-->
+<!--                            <li>-->
+<!--                                <p>风力等级：</p>-->
+<!--                                <input type="text" name="windClass"/>-->
+<!--                            </li>-->
+<!--                            <li>-->
+<!--                                <p>风向描述：</p>-->
+<!--                                <input type="text" name="windDir"/>-->
+<!--                            </li>-->
+<!--                            <li>-->
+<!--                                <p>天气现象：</p>-->
+<!--                                <input type="text" name="text"/>-->
+<!--                            </li>-->
+<!--                            <li>-->
+<!--                                <p>日期：</p>-->
+<!--                                <input type="text" name="date"/>-->
+<!--                            </li>-->
+<!--                            <li>-->
+<!--                                <p>星期：</p>-->
+<!--                                <input type="text" name="week"/>-->
+<!--                            </li>-->
+<!--                            <li>-->
+<!--                                <p>最高温度(℃)：</p>-->
+<!--                                <input type="text" name="high"/>-->
+<!--                            </li>-->
+<!--                            <li>-->
+<!--                                <p>最低温度(℃)：</p>-->
+<!--                                <input type="text" name="low"/>-->
+<!--                            </li>-->
+<!--                            <li>-->
+<!--                                <p>白天风力：</p>-->
+<!--                                <input type="text" name="wcDay"/>-->
+<!--                            </li>-->
+<!--                            <li>-->
+<!--                                <p>晚上风力：</p>-->
+<!--                                <input type="text" name="wcNight"/>-->
+<!--                            </li>-->
+<!--                            <li>-->
+<!--                                <p>白天风向：</p>-->
+<!--                                <input type="text" name="wdDay"/>-->
+<!--                            </li>-->
+<!--                            <li>-->
+<!--                                <p>晚上风向：</p>-->
+<!--                                <input type="text" name="wdNight"/>-->
+<!--                            </li>-->
+<!--                            <li>-->
+<!--                                <p>白天天气现象：</p>-->
+<!--                                <input type="text" name="textDay"/>-->
+<!--                            </li>-->
+<!--                            <li>-->
+<!--                                <p>晚上天气现象：</p>-->
+<!--                                <input type="text" name="textNight"/>-->
+<!--                            </li>-->
+<!--                            <li>-->
+                                <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
+                                <a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i class="fa fa-refresh"></i>&nbsp;重置</a>
+                            </li>
+                        </ul>
+                    </div>
+                </form>
+            </div>
+
+            <div class="btn-group-sm" id="toolbar" role="group">
+<!--                <a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="system:WeatherInfo:add">-->
+<!--                    <i class="fa fa-plus"></i> 添加-->
+<!--                </a>-->
+<!--                <a class="btn btn-primary single disabled" onclick="$.operate.edit()" shiro:hasPermission="system:WeatherInfo:edit">-->
+<!--                    <i class="fa fa-edit"></i> 修改-->
+<!--                </a>-->
+<!--                <a class="btn btn-danger multiple disabled" onclick="$.operate.removeAll()" shiro:hasPermission="system:WeatherInfo:remove">-->
+<!--                    <i class="fa fa-remove"></i> 删除-->
+<!--                </a>-->
+                <a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="system:WeatherInfo:export">
+                    <i class="fa fa-download"></i> 导出
+                 </a>
+            </div>
+            <div class="col-sm-12 select-table table-striped">
+                <table id="bootstrap-table"></table>
+            </div>
+        </div>
+    </div>
+    <th:block th:include="include :: footer" />
+    <script th:inline="javascript">
+        var editFlag = [[${@permission.hasPermi('system:WeatherInfo:edit')}]];
+        var removeFlag = [[${@permission.hasPermi('system:WeatherInfo:remove')}]];
+        var prefix = ctx + "system/WeatherInfo";
+
+        $(function() {
+            var options = {
+                url: prefix + "/list",
+                createUrl: prefix + "/add",
+                updateUrl: prefix + "/edit/{id}",
+                removeUrl: prefix + "/remove",
+                exportUrl: prefix + "/export",
+                modalName: "百度天气信息",
+                columns: [{
+                    checkbox: true
+                },
+                {
+                    field : 'id', 
+                    title : 'ID',
+                    visible: false
+                },
+                {
+                    field : 'country', 
+                    title : '国家名称'
+                },
+                {
+                    field : 'province', 
+                    title : '省份名称'
+                },
+                {
+                    field : 'city', 
+                    title : '城市名称'
+                },
+                {
+                    field : 'name', 
+                    title : '区县名称'
+                },
+                {
+                    field : 'cId', 
+                    title : '区县id'
+                },
+                {
+                    field : 'temp', 
+                    title : '温度(℃)',
+
+                },
+                {
+                    field : 'feelsLike', 
+                    title : '体感温度(℃)'
+                },
+                {
+                    field : 'rh', 
+                    title : '相对湿度(%)'
+                },
+                {
+                    field : 'windClass', 
+                    title : '风力等级'
+                },
+                {
+                    field : 'windDir', 
+                    title : '风向描述'
+                },
+                {
+                    field : 'text', 
+                    title : '天气现象'
+                },
+                {
+                    field : 'date', 
+                    title : '日期',
+                    length: '8'
+                },
+                {
+                    field : 'week', 
+                    title : '星期',
+                    length: '8'
+                },
+                {
+                    field : 'high', 
+                    title : '最高温度(℃)'
+                },
+                {
+                    field : 'low', 
+                    title : '最低温度(℃)'
+                },
+                {
+                    field : 'wcDay', 
+                    title : '白天风力'
+                },
+                {
+                    field : 'wcNight', 
+                    title : '晚上风力'
+                },
+                {
+                    field : 'wdDay', 
+                    title : '白天风向'
+                },
+                {
+                    field : 'wdNight', 
+                    title : '晚上风向'
+                },
+                {
+                    field : 'textDay', 
+                    title : '白天天气现象'
+                },
+                {
+                    field : 'textNight', 
+                    title : '晚上天气现象'
+                },
+                {
+                    title: '操作',
+                    align: 'center',
+                    formatter: function(value, row, index) {
+                        var actions = [];
+                        actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="javascript:void(0)" onclick="$.operate.edit(\'' + row.id + '\')"><i class="fa fa-edit"></i>编辑</a> ');
+                        actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="javascript:void(0)" onclick="$.operate.remove(\'' + row.id + '\')"><i class="fa fa-remove"></i>删除</a>');
+                        return actions.join('');
+                    }
+                }]
+            };
+            $.table.init(options);
+        });
+    </script>
+</body>
+</html>
