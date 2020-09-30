@@ -7,6 +7,8 @@ import java.util.concurrent.TimeUnit;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.ruoyi.common.annotation.Log;
+import com.ruoyi.common.enums.BusinessType;
 import com.ruoyi.common.utils.StringUtils;
 import com.ruoyi.system.domain.WeatherDistrict;
 import com.ruoyi.system.service.IWeatherDistrictService;
@@ -56,9 +58,10 @@ public class WeatherInfoServiceImpl implements IWeatherInfoService {
      * @return 百度天气信息
      */
     @Override
+
     public List<WeatherInfo> selectWeatherInfoList(WeatherInfo weatherInfo) {
         String city = weatherInfo.getCity();
-
+        List<Long> ids = new ArrayList<>();
         WeatherDistrict weatherDistrict = new WeatherDistrict();//城市编码表
         weatherDistrict.setCity(city);
         String weatherUrl = url + "&district_id=";
@@ -67,7 +70,9 @@ public class WeatherInfoServiceImpl implements IWeatherInfoService {
             return new ArrayList<WeatherInfo>();
 
         }
+        List<WeatherInfo> redisResultList = new ArrayList<>();
         for (WeatherDistrict weatherDistrictResult : weatherDistrictList) {
+
             String district = weatherDistrictResult.getDistrict();
             String districtGeocode = weatherDistrictResult.getDistrictGeocode();
 
@@ -98,7 +103,9 @@ public class WeatherInfoServiceImpl implements IWeatherInfoService {
             if (StringUtils.isEmpty(forecasts)) {
                 return new ArrayList<WeatherInfo>();
             }
+
             for (int i = 0; i < forecasts.size(); i++) {
+
                 JSONObject forecastsJSONObject = forecasts.getJSONObject(i);
                 String textDay = forecastsJSONObject.get("text_day").toString();
                 String textNight = forecastsJSONObject.get("text_night").toString();
@@ -132,18 +139,22 @@ public class WeatherInfoServiceImpl implements IWeatherInfoService {
                 weatherInfo.setWindDir(windDir);
                 weatherInfo.setCity(city);
                 weatherInfoMapper.insertWeatherInfo(weatherInfo);
+                ids.add(weatherInfo.getId());
             }
+            System.out.println(ids);
 
         }
+        List<WeatherInfo> byIdsList = weatherInfoMapper.selectByIds(ids);
         if (redisTemplate.opsForValue().get("infoList" + city) == null) {
-            List<WeatherInfo> infoList = weatherInfoMapper.selectByCity(city);
-            redisTemplate.opsForValue().set("infoList" + city,infoList,15, TimeUnit.SECONDS);
+//            List<WeatherInfo> infoList = weatherInfoMapper.selectByCity(city);
+            redisTemplate.opsForValue().set("infoList" + city, byIdsList, 60, TimeUnit.SECONDS);
             List<WeatherInfo> redisResult = (List<WeatherInfo>) redisTemplate.opsForValue().get("infoList" + city);
             return redisResult;
         } else {
             List<WeatherInfo> redisResult = (List<WeatherInfo>) redisTemplate.opsForValue().get("infoList" + city);
             return redisResult;
         }
+
     }
 
     /**

@@ -59,6 +59,12 @@ public interface WeatherInfoMapper {
      */
     public int deleteWeatherInfoByIds(String[] ids);
 
+
+    /**
+     * 根据id批量查找数据
+     */
+    List<WeatherInfo> selectByIds(List<Long> ids);
+
     /**
      * 根据城市查询数据
      * @param city

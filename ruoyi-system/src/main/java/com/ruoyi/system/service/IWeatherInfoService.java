@@ -65,4 +65,5 @@ public interface IWeatherInfoService {
      * @return
      */
     List<WeatherInfo> selectByCity(String city);
+
 }

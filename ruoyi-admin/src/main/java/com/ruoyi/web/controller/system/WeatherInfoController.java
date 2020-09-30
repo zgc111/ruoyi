@@ -77,7 +77,7 @@ public class WeatherInfoController extends BaseController {
      * 新增保存百度天气信息
      */
     @RequiresPermissions("system:WeatherInfo:add")
-    @Log(title = "百度天气信息", businessType = BusinessType.INSERT)
+    @Log(title = "百度天气信息", businessType = BusinessType.OTHER)
     @PostMapping("/add")
     @ResponseBody
     public AjaxResult addSave(WeatherInfo weatherInfo) {
